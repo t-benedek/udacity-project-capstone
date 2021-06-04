@@ -22,12 +22,6 @@ jobs:
       - run: 
           name: Test the server
           command: |
-            ps -aux | grep nginx
+            apt-get update && apt-get install -y net-tools
+            netstat -a
             curl "http://localhost"
-      
-      - run: 
-          name: Exeption handling
-          command: |
-            echo "setup of nginx failed "
-            exit 1
-          when: on_fail    
