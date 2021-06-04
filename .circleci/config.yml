@@ -17,8 +17,9 @@ jobs:
       - run:
           name: run and test nginx server
           command: |  
-          nginx &
-          if curl -s "http://loaclhost" | grep "Benny"
+            nginx &
+            curl "http://loaclhost"
+            if curl -s "http://loaclhost" | grep "Benny"
               then
                 echo "nginx alive"
             fi
