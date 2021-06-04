@@ -16,8 +16,7 @@ jobs:
 
       - run:
           name: run and test nginx server
-          command: |  
-            nginx &
+          command: |
             curl "http://localhost"
             if curl -s "http://localhost" | grep "Benny"
               then
