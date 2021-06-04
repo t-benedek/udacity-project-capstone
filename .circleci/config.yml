@@ -21,6 +21,4 @@ jobs:
             if curl -s "http://loaclhost" | grep "Benny"
               then
                 echo "nginx alive"
-              else
-                return 1
             fi
