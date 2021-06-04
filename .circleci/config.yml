@@ -22,7 +22,7 @@ jobs:
       - run: 
           name: Test the server
           command: |
-            curl http://localhost:8080
+            curl http://localhost
       
       - run: 
           name: Exeption handling
