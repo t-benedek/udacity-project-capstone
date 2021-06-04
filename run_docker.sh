@@ -6,4 +6,4 @@
 
 docker build --tag=quarkus-hello .
 
-docker run --name quarkus-hello -d -p 8080:80 index.html
+docker run -it -p 8080:80 quarkus-hello
