@@ -5,32 +5,28 @@ jobs:
     docker:
     # Use the same Docker base as the project
       - image: nginx
-    working_directory: ~/repo
+
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+      - run:
+          name: copy index.html
+          command: |
+            cp index.html /usr/share/nginx/html/index.html
 
       - run:
-          name: install dependencies
+          name: run nginx server
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+            nginx &
 
-      - run:
-          name: run lint
+      - run: 
+          name: Test the server
           command: |
-            . venv/bin/activate
-            make lint  
+            curl http://localhost:8080
+      
+      - run: 
+          name: Exeption handling
+          command: |
+            echo "setup of nginx failed "
+            exit 1
+          when: on_fail    
