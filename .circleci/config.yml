@@ -18,6 +18,7 @@ jobs:
           name: run nginx server
           command: |
             nginx &
+            curl localhost
 
       - run: 
           name: Test the server
