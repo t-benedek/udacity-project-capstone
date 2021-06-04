@@ -22,6 +22,7 @@ jobs:
       - run: 
           name: Test the server
           command: |
+            ps -aux | grep nginx
             curl "http://localhost"
       
       - run: 
