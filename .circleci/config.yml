@@ -19,8 +19,8 @@ jobs:
           command: |  
             nginx &
             sleep 5s
-            curl "http://loaclhost"
-            if curl -s "http://loaclhost" | grep "Benny"
+            curl "http://localhost"
+            if curl -s "http://localhost" | grep "Benny"
               then
                 echo "nginx alive"
             fi
