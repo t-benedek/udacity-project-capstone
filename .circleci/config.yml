@@ -27,13 +27,28 @@ jobs:
             fi
   deploy:
     docker:
-      - image: nginx
+      - image: python:3.7-alpine3.11
     
     steps:
-      - run: echo "deployment to kubernetes"
+      - run: echo "create the docker container in the docker hub"
+
+      - run: echo "deployment of docker container to kubernetes"
+
+  smoketest:
+    docker:
+      - image: python:3.7-alpine3.11
+    
+    steps:
+      - run: echo "test if backend ip is reacheable with curl"
 
 workflows:
   default:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires: [build]
+          filters:
+            branches:
+              only: [master]
+      - smoketest:
+          requires: [deploy] 
