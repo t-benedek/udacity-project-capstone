@@ -1,9 +1,11 @@
-version: 2
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@2.0.0
 
 jobs:
   build:
     docker:
-    # Use the same Docker base as the project
       - image: nginx
 
     steps:
@@ -23,3 +25,15 @@ jobs:
               then
                 echo "nginx alive"
             fi
+  deploy:
+    docker:
+      - image: nginx
+    
+    steps:
+      - run: echo "deployment to kubernetes"
+
+workflows:
+  default:
+    jobs:
+      - build
+      - deploy
