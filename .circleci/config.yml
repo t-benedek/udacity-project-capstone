@@ -47,8 +47,5 @@ workflows:
       - build
       - deploy:
           requires: [build]
-          filters:
-            branches:
-              only: [master]
       - smoketest:
           requires: [deploy] 
