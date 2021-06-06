@@ -85,14 +85,14 @@ jobs:
 workflows:
   default:
     jobs:
-      # - build
-      # - deploy-docker:
-      #     requires: [build]
-      #     filters:
-      #       branches:
-      #         only: [main]
+      - build
+      - deploy-docker:
+          requires: [build]
+          filters:
+            branches:
+              only: [main]
       - deploy-cluster:
           cluster-name: quarkus-hello
-          # requires: [deploy-docker]
-      # - smoketest:
-      #     requires: [deploy-cluster] 
+          requires: [deploy-docker]
+      - smoketest:
+          requires: [deploy-cluster] 
