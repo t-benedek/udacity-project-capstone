@@ -26,7 +26,7 @@ jobs:
               then
                 echo "nginx alive"
             fi
-  deploy:
+  deploy-docker:
     docker:
       - image: nginx
     
@@ -59,7 +59,7 @@ jobs:
             docker tag quarkus-hello:$TAG $DOCKER_USER/quarkus-hello:$TAG
             docker push $DOCKER_USER/quarkus-hello:$TAG
            
-
+  # see here for details how to use: https://circleci.com/developer/orbs/orb/circleci/aws-eks
   deploy-cluster:
     executor: aws-eks/python3
     parameters:
@@ -81,12 +81,13 @@ workflows:
   default:
     jobs:
       - build
-      - deploy:
+      - deploy-docker:
           requires: [build]
           filters:
             branches:
               only: [main]
       - deploy-cluster:
           cluster-name: quarkus-hello
+          requires: [deploy-docker]
       - smoketest:
-          requires: [deploy] 
+          requires: [deploy-cluster] 
