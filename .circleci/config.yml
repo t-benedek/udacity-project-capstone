@@ -55,7 +55,8 @@ jobs:
             docker build --tag=quarkus-hello:$TAG .
             docker images
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push quarkus-hello:$TAG
+            docker tag quarkus-hello:$TAG $DOCKER_USER/quarkus-hello:$TAG
+            docker push $DOCKER_USER/quarkus-hello:$TAG
            
 
       - run: echo "deployment of docker container to kubernetes"
