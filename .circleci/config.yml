@@ -37,7 +37,7 @@ jobs:
             wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
             chmod +x /bin/hadolint
             hadolint
-            
+
   deploy-docker:
     docker:
       - image: nginx
@@ -111,7 +111,7 @@ workflows:
             branches:
               only: [main]
       - deploy-cluster:
-          cluster-name: quarkus-hello
+          cluster-name: quarkus-cluster
           requires: [deploy-docker]
       - smoketest:
           requires: [deploy-cluster] 
