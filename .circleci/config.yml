@@ -105,8 +105,10 @@ workflows:
   default:
     jobs:
       - build
-      - deploy-docker:
+      - lint:
           requires: [build]
+      - deploy-docker:
+          requires: [lint]
           filters:
             branches:
               only: [main]
