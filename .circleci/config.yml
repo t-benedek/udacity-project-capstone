@@ -97,6 +97,6 @@ workflows:
       #         only: [main]
       - deploy-cluster:
           cluster-name: quarkus-hello
-          requires: [deploy-docker]
+          # requires: [deploy-docker]
       # - smoketest:
       #     requires: [deploy-cluster] 
