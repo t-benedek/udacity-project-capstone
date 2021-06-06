@@ -74,7 +74,7 @@ jobs:
           cluster-name: << parameters.cluster-name >>
           install-kubectl: true
       - kubernetes/create-or-update-resource:
-          resource-file-path: "ku-deployment.yal"
+          resource-file-path: "ku-deployment.yml"
           resource-name: "quarkus-hello"
           get-rollout-status: true
           show-kubectl-command: true
@@ -89,14 +89,14 @@ jobs:
 workflows:
   default:
     jobs:
-      - build
-      - deploy-docker:
-          requires: [build]
-          filters:
-            branches:
-              only: [main]
+      # - build
+      # - deploy-docker:
+      #     requires: [build]
+      #     filters:
+      #       branches:
+      #         only: [main]
       - deploy-cluster:
           cluster-name: quarkus-hello
           requires: [deploy-docker]
-      - smoketest:
-          requires: [deploy-cluster] 
+      # - smoketest:
+      #     requires: [deploy-cluster] 
