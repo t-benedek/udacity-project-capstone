@@ -26,17 +26,17 @@ jobs:
               then
                 echo "nginx alive"
             fi
-  lint:
-    docker:
-      - image: nginx
-    steps:
-      - checkout
-      - run:
-          name: install and run hadolint
-          command: |
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
-            chmod +x /bin/hadolint
-            hadolint
+  # lint:
+  #   docker:
+  #     - image: alpine:latest
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: install and run hadolint
+  #         command: |
+  #           wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+  #           chmod +x /bin/hadolint
+  #           hadolint
 
   deploy-docker:
     docker:
@@ -105,10 +105,10 @@ workflows:
   default:
     jobs:
       - build
-      - lint:
-          requires: [build]
+      # - lint:
+      #     requires: [build]
       - deploy-docker:
-          requires: [lint]
+          requires: [build]
           filters:
             branches:
               only: [main]
