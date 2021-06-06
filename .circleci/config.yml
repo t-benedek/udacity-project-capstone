@@ -30,7 +30,23 @@ jobs:
       - image: python:3.7-alpine3.11
     
     steps:
-      - run: echo "create the docker container in the docker hub"
+      - checkout
+      - run:
+          name: copy index.html
+          command: |
+            cp index.html /usr/share/nginx/html/index.html
+      # setup for seperate isolated docker deployment environment
+      # see here: https://circleci.com/docs/2.0/building-docker-images/
+      - setup_remote_docker:
+          version: 19.03.13
+      - run: 
+          name: deploy docker container and push to docker hub
+          command: |  
+            TAG=0.1.$CIRCLE_BUILD_NUM
+            docker build --tag=quarkus-hello:$TAG .
+            # echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            # docker push tbenedek/quarkus-hello:$TAG
+           
 
       - run: echo "deployment of docker container to kubernetes"
 
