@@ -52,11 +52,11 @@ jobs:
           name: deploy docker container and push to docker hub
           command: |  
             TAG=0.1.$CIRCLE_BUILD_NUM
-            docker build --tag=quarkus-hello .
+            docker build --tag=quarkus-hello:$TAG .
             docker images
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker tag quarkus-hello $DOCKER_USER/quarkus-hello
-            docker push $DOCKER_USER/quarkus-hello
+            docker tag quarkus-hello $DOCKER_USER/quarkus-hello:$TAG
+            docker push $DOCKER_USER/quarkus-hello:$TAG
            
 
       - run: echo "deployment of docker container to kubernetes"
