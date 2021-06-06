@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-eks: circleci/aws-eks@0.2.3
+  circleci/aws-eks@1.1.0
   kubernetes: circleci/kubernetes@0.4.0
 
 jobs:
@@ -59,7 +59,8 @@ jobs:
             docker tag quarkus-hello:$TAG $DOCKER_USER/quarkus-hello:$TAG
             docker push $DOCKER_USER/quarkus-hello:$TAG
            
-  # see here for details how to use: https://circleci.com/developer/orbs/orb/circleci/aws-eks
+  # see here for details how to use: https://circleci.com/developer/orbs/orb/circleci/aws-eks or
+  # https://github.com/CircleCI-Public/aws-eks-orb
   deploy-cluster:
     executor: aws-eks/python3
     parameters:
@@ -68,10 +69,14 @@ jobs:
           Name of the EKS cluster
         type: string
     steps:
-      - kubernetes/install
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
           install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          resource-file-path: "tests/nginx-deployment/deployment.yaml"
+          resource-name: "deployment/nginx-deployment"
+          get-rollout-status: true
+          show-kubectl-command: true
 
   smoketest:
     docker:
