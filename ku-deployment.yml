@@ -8,11 +8,11 @@ spec:
   replicas: 5
   selector:
     matchLabels:
-      app: nginx
+      app: quarkus-hello
   template:
     metadata:
       labels:
-        app: nginx
+        app: quarkus-hello
     spec:
       containers:
       - name: quarkus-hello

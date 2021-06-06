@@ -77,7 +77,7 @@ jobs:
           name: deploy kubernetes
           command: | 
             kubectl delete deployment quarkus-hello
-            kubectl apply -f ku-deployment.yml 
+            kubectl apply -f ku-deployment.yml
       # kubectl create deployment quarkus-hello --image=tbenedek/quarkus-hello:latest --port=8080
       
 
