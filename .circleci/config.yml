@@ -75,9 +75,9 @@ jobs:
           install-kubectl: true
       - run: 
           name: deploy kubernetes
-          command: |          
+          command: | 
             kubectl delete deployment quarkus-hello
-            kubectl create deployment quarkus-hello --image=tbenedek/quarkus-hello:$CIRCLE_BUILD_NUM --port=8080
+            kubectl create deployment quarkus-hello:$CIRCLE_BUILD_NUM --image=tbenedek/quarkus-hello:$CIRCLE_BUILD_NUM --port=8080
       # kubectl apply -f ku-deployment.yml 
 
   smoketest:
