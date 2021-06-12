@@ -89,7 +89,9 @@ jobs:
           name: deploy kubernetes
           command: | 
             kubectl delete deployment quarkus-hello
-            kubectl apply -f ku-deployment.yml
+            kubectl create deployment quarkus-hello --image=tbenedek/quarkus-hello --port=8080
+            kubectl port-forward deployment/quarkus-hello 8080:80
+          # kubectl apply -f ku-deployment.yml
           # ku create -f clusterip.yml
           # kubectl create deployment quarkus-hello --image=tbenedek/quarkus-hello:latest --port=8080
           # ku proxy && ku exec -it quarkus-hello-7996589885-f4jrq -- bash (Running bash for the pod named quarkus-hello-7996589885-f4jrq)
