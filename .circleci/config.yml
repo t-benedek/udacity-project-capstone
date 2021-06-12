@@ -83,7 +83,7 @@ jobs:
     steps:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: pods
+          cluster-name: << parameters.cluster-name >>
           install-kubectl: true
       - run: 
           name: deploy kubernetes
@@ -110,7 +110,7 @@ workflows:
             branches:
               only: [main]
       - deploy-cluster:
-          cluster-name: quarkus-cluster
+          cluster-name: pods
           requires: [deploy-docker]
       - smoketest:
           requires: [deploy-cluster] 
