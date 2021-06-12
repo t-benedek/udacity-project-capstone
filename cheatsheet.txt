@@ -1,0 +1,15 @@
+kubectl create deployment quarkus-hello --image=tbenedek/quarkus-hello --port=8080
+kubectl port-forward deployment/quarkus-hello 8080:80
+kubectl create deployment quarkus-hello --image=tbenedek/quarkus-hello:latest --port=8080
+
+Log into pod, (Running bash for the pod named quarkus-hello-7996589885-f4jrq)
+ku proxy && ku exec -it quarkus-hello-7996589885-f4jrq -- bash 
+
+# Kube config wechseln auf AWS EKS
+aws eks --region us-west-2 update-kubeconfig --name quarkus-hello
+
+
+eksctl create cluster --name prod --version 1.17 --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --nodes-max 4 --ssh-access --managed
+
+
+
