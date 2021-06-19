@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
+# check for username and password as parameter
+if [ $# -lt 1 ]
+  then
+    echo "USAGE: run_kubernetes.sh <docker-username>"
+    exit 1
+fi
+
 # define variables
-dockerpath=tbenedek/quarkus-hello
+dockerpath=$1/quarkus-hello
 
 # This tags and uploads an image to Docker Hub
 kubectl delete deployment quarkus-hello
