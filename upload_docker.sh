@@ -9,7 +9,7 @@ if [ $# -lt 2 ]
 fi
 
 # set dockerpath
-dockerpath=tbenedek/quarkus-hello
+dockerpath=$1/quarkus-hello
 
 # Step 2:  
 # Authenticate & tag
